@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Lexend';
+}
+
+.login-brand-title {
+    translate: 50%;
+    opacity: 0;
+}
+
+.sidebar-base,
+.topbar-pmenu-container,
+.topbar-pmenu-arrow {
+    background-color: #202224;
+}
+
+.login-form {
+    background-color: #313338;
+}
+
+.login-button,
+.login-bg,
+.submit-buttons {
+    background-color: #5865F2;
+}
+
+.profile-menu-buttons:hover {
+    background-color: #5865F2;
+    color: white;
+}
+
+.login-button:hover,
+.submit-buttons:hover {
+    background-color: #4752C4;
+}
+
+.input {
+    background-color: #1E1F22;
+}
+
+.custom-shape-divider-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 81px;
+}
+
+.custom-shape-divider-bottom,
+.custom-shape-divider-top .shape-fill {
+    fill: #4649ff;
+}
+
+.custom-shape-divider-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-top svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 41px;
+}
+
+.dashboard-body,
+.header-buttons button {
+    background-color: #35383E;
+}
+
+.dashboard-header,
+.dashboard-footer {
+    background-color: #2E3237;
+    border-color: #202224;
+    font-size: 12px;
+}
+
+.tab-row-buttons {
+    border-color: #202224;
+}
+
+.empty-cat {
+    content: url(../images/empty-cat.gif);
+}
+
+.such-empty-cat {
+    content: url(../images/empty-cat.png);
+}
+
+
+.brand-icon {
+    content: url(../images/icon.png);
+}
+
+
+.sidebar-brand-title {
+    font-size: 20px;
+}
+
+.active-sidebar-button,
+.sidebar-button:hover {
+    color: white;
+    background-color: #35383E;
+}
+
+.sidebar-button {
+    font-size: 12px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.third-degree-form {
+    background-color: #313338;
+}
+
+.table-header {
+    background-color: #35383E;
+    border-bottom: 2px solid #1E1F22;
+}
+
+.table-content {
+    background-color: #1E1F22;
+}
+
+.table-content:hover {
+    background-color: #2E3237;
+}
+
+.divider {
+    border-color: #1E1F22;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.table-content:not(:last-child) {
+    border-bottom: 2px solid #35383E;
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+}
+
+:-moz-placeholder {
+    font-style: italic;
+}
+
+::-moz-placeholder {
+    font-style: italic;
+}
+
+:-ms-input-placeholder {
+    font-style: italic;
+}
+
+.create-or-add {
+    background-color: #23A55A;
+}
+
+.create-or-add:hover {
+    background-color: #1b7e44;
+}
