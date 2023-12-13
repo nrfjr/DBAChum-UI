@@ -8,14 +8,18 @@ export function transferArrayToObject(obj, array, custom_transfer) {
 
     Object.keys(obj).forEach((k) => {
 
-        Object.keys(custom_transfer).forEach((k1) => {
+        if(custom_transfer){
+            Object.keys(custom_transfer).forEach((k1) => {
 
-            if(k === k1){
-                obj[k] = array[custom_transfer[k]]
-            }else{
-                obj[k] = array[k]
-            }
-        })
+                if(k === k1){
+                    obj[k] = array[custom_transfer[k]]
+                }else{
+                    obj[k] = array[k]
+                }
+            })
+        }else{
+            obj[k] = array[k]
+        }
 
     })
 }
