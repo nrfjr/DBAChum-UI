@@ -8,34 +8,52 @@
                             <div
                                 :class="this.activeSidebarButton === item.name ? 'w-1 bg-white left-0 h-wrap rounded-r' : 'hidden'">
                             </div>
-                            <button @click="sidebarClickHandler(item.name)"
-                                :class="activeSidebarButton == item.name ? 'active-sidebar-button' : ''"
-                                v-on:click="(item.name == 'Databases' ? open = !open : '')"
+                            <button @click="!item.submodules ? sidebarClickHandler(item.src, item.name) : null" :class="activeSidebarButton == item.name ? 'active-sidebar-button' : ''"
+                                v-on:click="(item.submodules ? item.isOpen = !item.isOpen : '')"
                                 class="ml-2 sidebar-button w-full text-sm font-bold flex items-center gap-2.5 p-2 text-gray-400 rounded"
                                 :id="item.name">
                                 <i :class="ICON_PREFIX + item.icon"></i>
-                                <div class="flex justify-between w-full"><span>{{ item.name.replace("_", " ") }}</span> <i
-                                        v-if="item.submodules"
-                                        :class="'mt-1 fa-solid ' + (open ? 'fa-angle-down' : 'fa-angle-up')"></i>
+                                <div class="flex justify-between w-full">
+                                    <span>{{ item.name.replace("_", " ") }}</span> 
+                                    <i v-if="item.submodules" :class="'mt-1 fa-solid ' + (item.isOpen ? 'fa-angle-down' : 'fa-angle-up')"></i>
                                 </div>
                             </button>
                         </div>
-                        <div :class="item.submodules ? '' : 'hidden'" v-show="(item.name == 'Databases' ? open : '')">
+                        <div v-if="item.submodules" :class="item.submodules ? '' : 'hidden'" v-show="(item.submodules ? item.isOpen  : '')">
                             <ul v-for="submodule in item.submodules" class="flex flex-col gap-1.5">
                                 <li class="sidebar-container py-1">
                                     <div class="flex">
                                         <div
-                                            :class="this.activeSidebarButton === submodule ? 'w-1 bg-white left-0 h-wrap rounded-r' : 'hidden'">
+                                            :class="this.activeSidebarButton === submodule.name ? 'w-1 bg-white left-0 h-wrap rounded-r' : 'hidden'">
                                         </div>
-                                        <button @click="sidebarClickHandler(submodule.split)"
-                                            :class="activeSidebarButton == submodule ? 'active-sidebar-button rounded' : ''"
+                                        <button @click="sidebarClickHandler(submodule.src, submodule.name)" v-on:click="(submodule.submodules ? submodule.isOpen = !submodule.isOpen : '')"
+                                            :class="activeSidebarButton == submodule.name ? 'active-sidebar-button rounded' : ''"
                                             class="ml-4 sidebar-button w-full text-sm font-bold flex p-2 text-gray-400 rounded">
                                             <i :class="ICON_PREFIX + item.icon + ' mt-0.5'"></i>
-                                            <span class="pl-2">{{ submodule }}</span>
+                                            <div class="flex justify-between w-full">
+                                                <span class="pl-2">{{ submodule.name.replace("_", " ") }}</span>
+                                                <i v-if="submodule.submodules" :class="'mt-1 fa-solid ' + (submodule.isOpen ? 'fa-angle-down' : 'fa-angle-up')"></i>
+                                            </div>
                                         </button>
                                     </div>
+                                    <div v-if="submodule.submodules" :class="submodule.submodules ? '' : 'hidden'" v-show="(submodule.submodules ? submodule.isOpen  : '')">
+                                        <ul v-for="module in submodule.submodules" class="flex flex-col gap-1.5">
+                                            <li class="sidebar-container py-1">
+                                                <div class="flex">
+                                                    <div
+                                                        :class="this.activeSidebarButton === module.name ? 'w-1 bg-white left-0 h-wrap rounded-r' : 'hidden'">
+                                                    </div>
+                                                    <button @click="sidebarClickHandler(module.src, module.name)"
+                                                        :class="activeSidebarButton == module.name ? 'active-sidebar-button rounded' : ''"
+                                                        class="ml-4 sidebar-button w-full text-sm font-bold flex p-2 text-gray-400 rounded">
+                                                        <i :class="ICON_PREFIX + module.icon + ' mt-0.5'"></i>
+                                                        <span class="pl-2">{{ module.name.replace("_", " ") }}</span>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
-
                             </ul>
                         </div>
                     </li>
@@ -81,7 +99,7 @@ import Footer from '../components/Footer.vue'
 import Empty from '../components/Empty.vue'
 import { ICON_PREFIX, API_SOURCE } from '../assets/js/globals'
 import { getModules } from '../assets/js/module'
-import { shallowRef, watchEffect, ref } from 'vue'
+import { shallowRef, watchEffect } from 'vue'
 import { sleep } from '../assets/js/tools'
 import Spinner from '../components/dialogs/Spinner.vue'
 
@@ -93,7 +111,6 @@ export default {
             ICON_PREFIX,
             API_SOURCE,
             activeSidebarButton: '',
-            open: false,
             spinner: {
                 show: false
             }
@@ -107,14 +124,15 @@ export default {
         Spinner,
     },
     methods: {
-        sidebarClickHandler: function (name) {
-            this.activeSidebarButton = name              
+        sidebarClickHandler: function (src, component) {
+            this.activeSidebarButton = component
+            
             watchEffect(
                         async () =>{ 
-                            import('/src/views/'.concat(name,'.vue'))
-                            .then((result) => this.activeComponent = result.default) 
+                            import(`${src}${component}.vue`)
+                            .then((result) => this.activeComponent = shallowRef(result.default)) 
                         }
-            )         
+            )    
         },
         verifyView: function () {
 

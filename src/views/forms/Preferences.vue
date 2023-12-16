@@ -1,4 +1,5 @@
 <template>
+<div class="w-[40%] flex justify-center">
     <div class="p-4 rounded third-degree-form shadow-md shadow-black w-full h-full">
         <div class="pb-4">
             <span class="text-white text-md">Profile Image</span>
@@ -81,6 +82,7 @@
             </button>
         </div>
     </div>
+</div>
     <Teleport to="body">
         <Alert :status="alert.status" :show="alert.show" @close="alert.show = false">
             <template #body>

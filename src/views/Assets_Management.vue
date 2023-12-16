@@ -274,8 +274,9 @@ export default {
         },
         createOrEditAssets: async function () {
             this.spinner.show = false
-            let result = await upsertAsset(JSON.stringify(this.formData))
-            this.showAlert(result.data.status, result.data.message)
+            //let result = await upsertAsset(JSON.stringify(this.formData))
+            //this.showAlert(result.data.status, result.data.message)
+            console.log(JSON.stringify(this.formData))
             this.getAssetList()
             this.clearForm()
         },

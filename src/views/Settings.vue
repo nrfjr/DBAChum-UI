@@ -15,13 +15,15 @@
             </ul>
         </div>
         <div id="myTabContent" class="ml-4 flex justify-center w-full scroll-y">
-            <component :is="activeForm"/>
+            <KeepAlive>
+                <component :is="activeForm"/>
+            </KeepAlive>
         </div>
     </div>
 </template>
 
 <script>
-import { watchEffect } from 'vue';
+import { shallowRef, watchEffect } from 'vue';
 
 export default {
     data() {
@@ -43,7 +45,7 @@ export default {
             watchEffect(
                         async () =>{ 
                             import('/src/views/forms/'.concat(tabName,'.vue'))
-                            .then((result) => this.activeForm = result.default) 
+                            .then((result) => this.activeForm = shallowRef(result.default)) 
                         }
             )    
         },

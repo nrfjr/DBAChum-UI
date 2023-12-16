@@ -69,7 +69,7 @@ import Table from '../components/Table.vue'
 import { ICON_PREFIX } from '../assets/js/globals'
 import Pagination from '../components/Pagination.vue'
 import Spinner from '../components/dialogs/Spinner.vue'
-import { clearObject, transferArrayToObject, sleep } from '../assets/js/tools.js'
+import { sleep } from '../assets/js/tools.js'
 import { getServerDiskSpace } from '../assets/js/disks.js'
 import { getExistingDiskServers } from '../assets/js/settings.js'
 

@@ -1,4 +1,5 @@
 <template>
+<div class="w-[40%]">
     <form @submit.prevent>
         <div class="p-4 rounded third-degree-form shadow-md shadow-black w-full">
             <div class="mb-10">
@@ -24,6 +25,7 @@
             </div>
         </div>
     </form>
+</div>
     <Teleport to="body">
         <Alert :status="alert.status" :show="alert.show" @close="alert.show = false">
             <template #body>

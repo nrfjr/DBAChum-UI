@@ -4,6 +4,10 @@ export function clearObject(obj) {
     })
 }
 
+
+// This function name is slightly misleading as the function both work on array to objects and
+// object to object, i may come one of these days to rename this again.
+
 export function transferArrayToObject(obj, array, custom_transfer) {
 
     Object.keys(obj).forEach((k) => {

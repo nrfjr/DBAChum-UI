@@ -1,4 +1,5 @@
 <template>
+<div>
     <div class="p-4 rounded third-degree-form shadow-md shadow-black">
         <div class="flex justify-between">
             <div>
@@ -112,6 +113,7 @@
 
         </div>
     </div>
+</div>
     <Teleport to="body">
         <Alert :status="alert.status" :show="alert.show" @close="alert.show = false">
             <template #body>

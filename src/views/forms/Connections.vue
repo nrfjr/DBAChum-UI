@@ -1,4 +1,5 @@
 <template>
+<div>
     <div class="p-4 rounded third-degree-form shadow-md shadow-black">
         <div class="flex justify-between">
             <div>
@@ -123,9 +124,9 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
+</div>
     <Teleport to="body">
         <Alert :status="alert.status" :show="alert.show" @close="alert.show = false">
             <template #body>
@@ -260,7 +261,7 @@ export default {
             }
         },
         transferDetailsToForm: function (obj, array) {
-            transferArrayToObject(obj, array)
+            transferArrayToObject(obj, array, null)
         },
         selectIdForDeletion: function (Id) {
             this.selectedId = Id

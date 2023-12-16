@@ -49,15 +49,15 @@ export async function getAssetEnvironment() {
 export async function upsertAsset(data) {
     let result = await axios.post(
         `${API_SOURCE}/assets`,
-        new URLSearchParams([['request', btoa('upsert_asset')], ['details', btoa(data)]])
+        new URLSearchParams([['request', btoa('validate_upsert_asset')], ['details', btoa(data)]])
     )
     return result
 }
 
-// export async function deleteAsset(db, data) {
-//     let result = await axios.post(
-//         `${API_SOURCE}/assets.php`,
-//         new URLSearchParams([['request', 'deleteAsset'], ['data', data], ['db', db]])
-//     )
-//     return result
-// }
+export async function deleteAsset(db, data) {
+    let result = await axios.post(
+        `${API_SOURCE}/assets.php`,
+        new URLSearchParams([['request', 'validate_delete_asset_request'], ['data', data], ['db', db]])
+    )
+    return result
+}
