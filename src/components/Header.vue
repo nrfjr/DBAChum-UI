@@ -1,7 +1,7 @@
 <template>
     <header class="z-9999 flex w-full dashboard-header border-b-[1px]">
         <div class="grid grid-cols-2 gap-1 px-4 py-1 h-10 w-full">
-            <div class="flex" id="dbdropdown">
+            <div class="flex" id="ctmdropdown">
             </div>
             <div class="grid grid-cols-1 justify-items-end" id="user-menu">
                 <button v-on:click="open = !open" class="rounded-full overflow-hidden">
