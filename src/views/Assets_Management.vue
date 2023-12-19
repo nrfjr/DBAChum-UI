@@ -259,12 +259,11 @@ export default {
                     IP: 'IP Address'
                 }
             )
-
+            this.createOrEditAssets()
             this.showForm('Edit')
         },
-        onDeleteDetail: function (data) {
-            let result = JSON.parse(data)
-            this.showModal('Delete')
+        deleteAsset: function (data) {
+            let result = JSON.parse(data) 
         },
         onFormClose: function (event) {
             if (event) {
@@ -274,11 +273,15 @@ export default {
         },
         createOrEditAssets: async function () {
             this.spinner.show = false
-            //let result = await upsertAsset(JSON.stringify(this.formData))
-            //this.showAlert(result.data.status, result.data.message)
-            console.log(JSON.stringify(this.formData))
-            this.getAssetList()
-            this.clearForm()
+            let result = await upsertAsset(JSON.stringify(this.formData))
+
+            if(result.data.status){
+                this.getAssetList()
+                this.clearForm()
+                this.showAlert(true, `Saved! ${result.data.message}`)
+            }else{
+                this.showAlert(false, `Oops! ${result.data.message}`)
+            }
         },
         showForm: function (action) {
             this.form.action = action
@@ -316,13 +319,10 @@ export default {
                 this.spinner.show = true
                 sleep(3000).then(() => {
                     if (value && this.action == 'save') {
-
                         this.createOrEditAssets()
-                        //show alert from result
-
                     }
                     else if (value && this.action == 'delete') {
-                        this.spinner.show = false
+                        this.onDeleteDetail()
                     }
                 })
             } else {
