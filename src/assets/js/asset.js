@@ -56,7 +56,7 @@ export async function upsertAsset(data) {
 
 export async function deleteAsset(db, data) {
     let result = await axios.post(
-        `${API_SOURCE}/assets.php`,
+        `${API_SOURCE}/assets`,
         new URLSearchParams([['request', 'validate_delete_asset_request'], ['data', data], ['db', db]])
     )
     return result
