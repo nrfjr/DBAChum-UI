@@ -28,13 +28,6 @@ export function transferArrayToObject(obj, array, custom_transfer) {
     })
 }
 
-export function resultHandler(status, response) {
-    if (status) {
-        return { status: status, message: response }
-    }
-    return { status: status, error: response }
-}
-
 export function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms))
 }

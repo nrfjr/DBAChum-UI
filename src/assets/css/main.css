@@ -25,6 +25,7 @@ body {
 .login-bg,
 .submit-buttons {
     background-color: #5865F2;
+    height: max-content;
 }
 
 .profile-menu-buttons:hover {

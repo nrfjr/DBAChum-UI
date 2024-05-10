@@ -69,7 +69,7 @@
 
 <script>
 import { toNumber } from '@vue/shared';
-import { ICON_PREFIX } from '../assets/js/globals';
+import { ICON_PREFIX, MODULES } from '../assets/data/globals.json';
 
 export default {
     data() {

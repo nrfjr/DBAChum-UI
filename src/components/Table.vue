@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { ICON_PREFIX } from '../assets/js/globals';
+import { ICON_PREFIX, MODULES } from '../assets/data/globals.json';
 import { makeTitle } from '../assets/js/tools';
 
 export default {

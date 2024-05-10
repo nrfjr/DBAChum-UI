@@ -1,5 +1,5 @@
 <template>
-    <section class="login-bg">
+    <div class="py-10">
         <div class="custom-shape-divider-top absolute">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                 <path
@@ -7,7 +7,7 @@
                     class="shape-fill"></path>
             </svg>
         </div>
-        <div class="flex flex-col items-center px-6 py-24 mx-auto h-screen lg:py-0">
+        <div class="flex flex-col items-center px-6 py-24 mx-auto h-10 lg:py-0">
             <a class="flex items-center mb-6 text-4xl font-semibold text-gray-900 dark:text-white">
                 <img class="h-16 w-24" alt="Company Logo" v-bind:src="this.logo" />
                 <hr class="border h-12 m-4 ">
@@ -17,7 +17,7 @@
                     </span>
                 </h1>
             </a>
-            <div class="max-xs:w-full max-md:w-full w-1/3 bg-white rounded shadow login-form shadow-xl">
+            <div class="w-1/3 bg-white rounded shadow login-form shadow-xl">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
                         Sign-in to your account
@@ -65,14 +65,16 @@
         <footer class="fixed bottom-0 w-full flex items-center justify-start text-xs text-white h-6 md:justify-center">
             <p class="ml-2 absolute left-0">nrfjr &copy; 2023, All Rights reserved.</p>
         </footer>
-    </section>
+    </div>
 </template>
 
 <script>
 import anime from 'animejs'
-import { getLogoImage } from '../assets/js/preference'
-import { validateLogin } from '../assets/js/login'
 import { sleep } from '../assets/js/tools'
+import { ADMIN } from '../assets/data/admin.json'
+import { postData } from '../assets/js/api'
+import { MODULES } from '../assets/data/globals.json'
+import { get_logo_image } from '../assets/js/resource'
 
 export default {
     data() {
@@ -90,8 +92,7 @@ export default {
 
             let USERNAME = this.login.username.toUpperCase()
 
-            this.login.loginStatus = await validateLogin(USERNAME, this.login.password)
-
+            this.login.loginStatus = ((ADMIN.password == this.login.password) && (ADMIN.username == this.login.username)) ? true : false
 
             if (this.login.loginStatus) {
                 this.$router.push('/home')
@@ -100,7 +101,7 @@ export default {
         },
         getImage: async function () {
 
-            let result = await getLogoImage()
+            let result = await get_logo_image()
 
             if (result.data.status) {
                 this.logo = 'data:image/jpeg;base64,' + result.data.message

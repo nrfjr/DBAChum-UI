@@ -66,12 +66,11 @@
 <script>
 import VueApexCharts from 'vue3-apexcharts'
 import Table from '../components/Table.vue'
-import { ICON_PREFIX } from '../assets/js/globals'
+import { ICON_PREFIX } from '../assets/data/globals.json'
 import Pagination from '../components/Pagination.vue'
 import Spinner from '../components/dialogs/Spinner.vue'
 import { sleep } from '../assets/js/tools.js'
-import { getServerDiskSpace } from '../assets/js/disks.js'
-import { getExistingDiskServers } from '../assets/js/settings.js'
+import { get_disk_space, get_existing_ip } from '../assets/js/disk.js'
 
 export default {
     data() {
@@ -191,22 +190,8 @@ export default {
         },
         getDiskSpace: async function () {
 
-            let result = await getServerDiskSpace(this.selectedType, this.selectedId, this.selectedUnit, this.currentPage)
-            this.List = JSON.stringify(result.data.message[0])
+            this.List = JSON.stringify(await get_disk_space().data.message[0])
             this.totalPages = result.data.count
-        },
-        getExistingIP: async function () {
-            let result = await getExistingDiskServers(this.selectedType)
-
-            if (result.data.status) {
-                this.existingDiskServers = JSON.stringify(result.data.message)
-            } else {
-                this.existingDiskServers = null
-            }
-        },
-        getChartValues: async function () {
-
-            let result = await getServerDiskSpace(this.selectedType, this.selectedId, this.selectedUnit, this.currentPage)
 
             this.series[0].data = result.data.message[1].map((disk) => disk.used)
             this.series[1].data = result.data.message[1].map((disk) => disk.free)
@@ -218,12 +203,22 @@ export default {
                     categories: result.data.message[1].map((disk) => disk.name),
                 },
             })
+
+        },
+        getExistingIP: async function () {
+
+            let result = await get_existing_ip(this.selectedType)
+
+            if (result.data.status) {
+                this.existingDiskServers = JSON.stringify(result.data.message)
+            } else {
+                this.existingDiskServers = null
+            }
         },
         clickView: async function () {
 
             this.spinner.show = true;
 
-            this.getChartValues()
             this.getDiskSpace()
 
             sleep(3000).then(() => {

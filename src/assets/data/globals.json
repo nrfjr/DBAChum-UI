@@ -1,4 +1,12 @@
 {
-    "API SOURCE": "http://<backend server IP>/dbac_backend/API",
-    "ICON PREFIX": "fa-solid fa-"
+    "API_SOURCE"                : "http://192.168.34.202/dbac_backend/API",
+    "ICON_PREFIX"               : "fa-solid fa-",
+    "MODULES":  {
+                    "SETTING"   : "advanceSettings",
+                    "DBCONN"    : "dbConnection",
+                    "MODULE"    : "modules",
+                    "RESOURCE"  : "resources",
+                    "DISK"      : "disks",
+                    "ASSET"     : "assets"
+                }
 }

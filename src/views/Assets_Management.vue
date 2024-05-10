@@ -171,14 +171,14 @@
 
 <script>
 import Table from '../components/Table.vue'
-import { ICON_PREFIX } from '../assets/js/globals'
+import { ICON_PREFIX } from '../assets/data/globals.json'
 import Pagination from '../components/Pagination.vue'
 import FormsModal from '../components/FormsModal.vue'
 import Spinner from '../components/dialogs/Spinner.vue'
 import Confirmation from '../components/dialogs/Confirmation.vue'
 import { clearObject, transferArrayToObject, sleep } from '../assets/js/tools.js'
 import Alert from '../components/dialogs/Alert.vue'
-import { getAssetType, getAssetOS, getAssetEnvironment, getAssetList, upsertAsset } from '../assets/js/asset.js'
+import { delete_asset, get_asset_environment, get_asset_list, get_asset_os, get_asset_type, upsert_assert } from '../assets/js/asset.js'
 
 export default {
     data() {
@@ -262,8 +262,21 @@ export default {
             this.createOrEditAssets()
             this.showForm('Edit')
         },
-        deleteAsset: function (data) {
-            let result = JSON.parse(data) 
+        onDeleteDetail: function(data){
+
+        },
+        deleteAsset: async function (data) {
+            //TODO: make the deletion of asset work.
+            this.spinner.show = false
+            let result = await delete_asset(data, db)
+
+            if(result.data.status){
+                this.getAssetList()
+                this.clearForm()
+                this.showAlert(true, `Done! ${result.data.message}`)
+            }else{
+                this.showAlert(false, `Oops! ${result.data.message}`)
+            }
         },
         onFormClose: function (event) {
             if (event) {
@@ -273,7 +286,7 @@ export default {
         },
         createOrEditAssets: async function () {
             this.spinner.show = false
-            let result = await upsertAsset(JSON.stringify(this.formData))
+            let result = await upsert_assert(JSON.stringify(this.formData))
 
             if(result.data.status){
                 this.getAssetList()
@@ -288,16 +301,13 @@ export default {
             this.form.show = true
         },
         getAssetOS: async function () {
-            let result = await getAssetOS()
-            this.assetOS = result.data.message
+            this.assetOS = await get_asset_os().data.message
         },
         getAssetType: async function () {
-            let result = await getAssetType()
-            this.assetType = result.data.message
+            this.assetType = await get_asset_type().data.message
         },
         getAssetEnvironment: async function () {
-            let result = await getAssetEnvironment()
-            this.assetEnv = result.data.message
+            this.assetEnv = await get_asset_environment().data.message
         },
         getAssetList: async function () {
 
@@ -308,9 +318,8 @@ export default {
                 asset_environment_id: this.selectedSearchEnv,
                 search: this.search
             }
-
-            let result = await getAssetList(JSON.stringify(details), this.currentPage)
-            this.List = JSON.stringify(result.data.message)
+            
+            this.List = JSON.stringify(await get_asset_list().data.message)
             this.totalPages = result.data.count
         },
         confirmAction: function (value) {

@@ -1,63 +1,32 @@
-import axios from 'axios'
-import { API_SOURCE } from './globals'
+import { postData } from "./api"
+import { MODULES } from "../data/globals.json"
 
-/***  
- * 
- *      Function for Asset Management related vues, this include the following:
- * 
- *      * getAssetList - 
- *      * getAssetType - 
- *      * getAssetOS - 
- *      * getAssetEnvironment -
- *      * upsertAsset - 
- *      * deleteAsset - 
- * 
-***/
-
-export async function getAssetList(data, page) {
-    let result = await axios.post(
-        `${API_SOURCE}/assets`,
-        new URLSearchParams([['request', btoa('retrieve_asset_list')], ['details', btoa(data)], ['page', btoa(page)]])
-    )
+export async function delete_asset(data,  db){
+    let result = await postData(MODULES.ASSET, null, [['request', 'validate_delete_asset_request'], ['data', data], ['db', db]])
     return result
 }
 
-export async function getAssetType() {
-    let result = await axios.post(
-        `${API_SOURCE}/assets`,
-        new URLSearchParams([['request', btoa('retrieve_asset_type')]])
-    )
+export async function upsert_assert(data){
+    let result = await postData(MODULES.ASSET, null, [['request', 'validate_upsert_asset'], ['details', data]])
     return result
 }
 
-export async function getAssetOS() {
-    let result = await axios.post(
-        `${API_SOURCE}/assets`,
-        new URLSearchParams([['request', btoa('retrieve_asset_os')]])
-    )
+export async function get_asset_os(){
+    let result = await postData(MODULES.ASSET, null, [['request', 'retrieve_asset_os']])
     return result
 }
 
-export async function getAssetEnvironment() {
-    let result = await axios.post(
-        `${API_SOURCE}/assets`,
-        new URLSearchParams([['request', btoa('retrieve_asset_environment')]])
-    )
+export async function get_asset_type(){
+    let result = await postData(MODULES.ASSET, null, [['request', 'retrieve_asset_type']])
     return result
 }
 
-export async function upsertAsset(data) {
-    let result = await axios.post(
-        `${API_SOURCE}/assets`,
-        new URLSearchParams([['request', btoa('validate_upsert_asset')], ['details', btoa(data)]])
-    )
+export async function get_asset_environment(){
+    let result = await postData(MODULES.ASSET, null, [['request', 'retrieve_asset_environment']])
     return result
 }
 
-export async function deleteAsset(db, data) {
-    let result = await axios.post(
-        `${API_SOURCE}/assets`,
-        new URLSearchParams([['request', 'validate_delete_asset_request'], ['data', data], ['db', db]])
-    )
+export async function get_asset_list(data, page){
+    let result = await postData(MODULES.ASSET, null, [['request', 'retrieve_asset_list'], ['details', data], ['page',page]])
     return result
 }

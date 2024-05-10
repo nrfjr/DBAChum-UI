@@ -1,4 +1,6 @@
 {
-    "username": "NEKOADMIN",
-    "password": "maw123"
+    "ADMIN" :   {
+                    "username": "admin",
+                    "password": "admin"
+                }
 }
