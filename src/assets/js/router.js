@@ -9,13 +9,16 @@ import Disk_Servers from "../../views/settings/Disk_Servers.vue"
 import Preferences from "../../views/settings/Preferences.vue"
 import Advance_Settings from "../../views/settings/Advance_Settings.vue"
 import Email from "../../views/Email.vue"
-import { get_sidebar_modules } from "./module"
-import { defineAsyncComponent } from "vue"
+import { ROOT_PATH } from '../data/globals.json'
 
 const routes = [
     {
-        path: '/',
-        redirect: 'login',
+        path: '',
+        redirect: `${ROOT_PATH}`
+    },
+    {
+        path: `${ROOT_PATH}`,
+        redirect: `${ROOT_PATH}/login`,
         children:
         [
             {
@@ -36,7 +39,7 @@ const routes = [
                     {
                         path: '',
                         components: {
-                            module: Empty
+                            homeview: Empty
                         }
                     }
                 ]
@@ -51,7 +54,7 @@ const routes = [
                     {
                         path: '',
                         components:{
-                            module: Settings
+                            homeview: Settings
                         },
                         children:
                         [
@@ -105,7 +108,7 @@ const routes = [
                         path: '',
                         components:
                         {
-                            module: Email
+                            homeview: Email
                         }
                     }
                 ]
@@ -120,31 +123,3 @@ const router = createRouter({
 });
 
 export default router;
-
-create_sidebar_modules_route()
-console.log(routes)
-
-export async function create_sidebar_modules_route(){
-    let result = await get_sidebar_modules()
-    let modules = result.data.message
-
-    for (let i in modules){
-        routes[0].children.push(
-            {
-                path: modules[i].name.toLowerCase(),
-                components: { init: Homepage },
-                children:
-                [
-                    {
-                        path: '',
-                        components:
-                        {
-                            module: defineAsyncComponent(() => import(`/src/views/Assets_Management.vue`))
-                        }
-                    }
-                ]
-
-            }
-        )
-    }
-}

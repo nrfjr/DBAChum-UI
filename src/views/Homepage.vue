@@ -4,7 +4,7 @@
         <div class="flex flex-col w-full justify-between overflow-y-scroll scroll-y-hidden no-scrollbar">
             <Header />
             <main class="h-full">
-                <router-view name="module"/>
+                <router-view name="homeview"/>
             </main>
             <Footer />
         </div>

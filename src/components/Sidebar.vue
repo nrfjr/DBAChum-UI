@@ -33,7 +33,7 @@
                                 <div
                                     :class="this.activeSidebarButton === item.id ? 'w-1 bg-white left-0 h-wrap rounded-r' : 'hidden'">
                                 </div>
-                                <RouterLink :to="item.url" @click="!item.submodules ? sidebarClickHandler(item.id) : null" :class="activeSidebarButton == item.id ? 'active-sidebar-button' : ''"
+                                <RouterLink :to="`${ROOT_PATH}${item.url}`" @click="!item.submodules ? sidebarClickHandler(item.id) : null" :class="activeSidebarButton == item.id ? 'active-sidebar-button' : ''"
                                     v-on:click="(item.submodules ? item.isOpen = !item.isOpen : '')"
                                     class="ml-2 sidebar-button w-full text-sm font-bold flex items-center gap-2.5 p-2 text-gray-400 rounded"
                                     :id="item.id">
@@ -92,16 +92,17 @@
 </template>
 
 <script>
-import { ICON_PREFIX } from '../assets/data/globals.json'
+import { ICON_PREFIX, ROOT_PATH } from '../assets/data/globals.json'
 import { get_logo_image } from '../assets/js/resource'
 import { get_sidebar_modules } from '../assets/js/module.js'
-import { RouterLink, useRoute } from 'vue-router';
+import { RouterLink } from 'vue-router';
 import Homepage from '../views/Homepage.vue';
 
 export default {
     data: () => {
         return {
             ICON_PREFIX,
+            ROOT_PATH,
             logo: 'src/assets/images/company.png',
             modules: null,
             activeSidebarButton: '',
@@ -124,6 +125,18 @@ export default {
             if (result.data.status) {
                 this.modules = result.data.message
             }
+
+        },
+        addSidebarRoutes: async function(){
+            let result = await get_sidebar_modules()
+            let modules = result.data.message
+
+            for(let i in modules){
+                this.$router.addRoute({name: `${modules[i].name.toLowerCase()}`, path: `/dbachum/${modules[i].name.toLowerCase()}`, components: { init: Homepage }})
+                this.$router.addRoute(`${modules[i].name.toLowerCase()}`, { path: '', components: { homeview: () => import(`${modules[i].src}${modules[i].name}.vue`) }})
+            }
+
+            console.log(this.$router.getRoutes())
         },
         sidebarClickHandler: function (component) {
             this.activeSidebarButton = component
@@ -133,6 +146,7 @@ export default {
     mounted: function () {
         this.getImage()
         this.getSidebarModules()
+        this.addSidebarRoutes()
     }
 }
 

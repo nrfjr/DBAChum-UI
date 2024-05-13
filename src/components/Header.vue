@@ -26,13 +26,13 @@
                                     Profile </span><i class="mt-0.5 fa-solid fa-user-circle"></i></button>
                         </div>
                         <div class="z-20">
-                            <RouterLink to="/email"
+                            <RouterLink to="/dbachum/email"
                                 class="profile-menu-buttons flex justify-between px-2 w-full transition delay-100 block text-gray-300 py-2"><span>Email
                                 </span><i class="mt-0.5 fa-solid fa-envelope"></i>
                             </RouterLink>
                         </div>
                         <div class="z-20">
-                            <RouterLink to="/settings"
+                            <RouterLink to="/dbachum/settings"
                             class="profile-menu-buttons flex justify-between px-2 w-full transition delay-100 block text-gray-300 py-2 text-center ">
                                 <span>Settings</span>
                                 <i class="mt-0.5 fa-solid fa-cogs"></i>

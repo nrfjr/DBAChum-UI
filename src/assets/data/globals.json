@@ -8,5 +8,6 @@
                     "RESOURCE"  : "resources",
                     "DISK"      : "disks",
                     "ASSET"     : "assets"
-                }
+                },
+    "ROOT_PATH"                 : "/dbachum"
 }
