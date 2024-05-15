@@ -28,6 +28,10 @@ body {
     height: max-content;
 }
 
+.not-found{
+    background-color: #0078D7;
+}
+
 .profile-menu-buttons:hover {
     background-color: #5865F2;
     color: white;

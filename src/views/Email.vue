@@ -2,11 +2,11 @@
     <div class="font-bold p-4 text-2xl text-white">
         Email
     </div>
-    <WebView :url="this.url" />
+    <Web_View :url="this.url" />
 </template>
 <script>
 import { get_email_url } from '../assets/js/setting'
-import WebView from '../components/WebView.vue'
+import Web_View from '../components/Web_View.vue'
 
 export default{
 
@@ -16,7 +16,7 @@ export default{
         }
     },
     components: {
-        WebView
+        Web_View
     },
     methods: {
         getURL: async function () {

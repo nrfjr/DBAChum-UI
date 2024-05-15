@@ -33,7 +33,7 @@
                                 <div
                                     :class="this.activeSidebarButton === item.id ? 'w-1 bg-white left-0 h-wrap rounded-r' : 'hidden'">
                                 </div>
-                                <RouterLink :to="`${ROOT_PATH}${item.url}`" @click="!item.submodules ? sidebarClickHandler(item.id) : null" :class="activeSidebarButton == item.id ? 'active-sidebar-button' : ''"
+                                <RouterLink :to="`${item.url}`" @click="!item.submodules ? sidebarClickHandler(item.id) : null" :class="activeSidebarButton == item.id ? 'active-sidebar-button' : ''"
                                     v-on:click="(item.submodules ? item.isOpen = !item.isOpen : '')"
                                     class="ml-2 sidebar-button w-full text-sm font-bold flex items-center gap-2.5 p-2 text-gray-400 rounded"
                                     :id="item.id">
@@ -54,7 +54,7 @@
                                             <button :to="submodule.url" @click="!submodule.submodules ? sidebarClickHandler(submodule.id) : null" v-on:click="(submodule.submodules ? submodule.isOpen = !submodule.isOpen : '')"
                                                 :class="activeSidebarButton == submodule.id ? 'active-sidebar-button rounded' : ''"
                                                 class="ml-4 sidebar-button w-full text-sm font-bold flex p-2 text-gray-400 rounded">
-                                                <i :class="ICON_PREFIX + item.icon + ' mt-0.5'"></i>
+                                                <i :class="ICON_PREFIX + submodule.icon + ' mt-0.5'"></i>
                                                 <div class="flex justify-between w-full">
                                                     <span class="pl-2">{{ submodule.name.replace("_", " ") }}</span>
                                                     <i v-if="submodule.submodules" :class="'mt-1 fa-solid ' + (submodule.isOpen ? 'fa-angle-down' : 'fa-angle-up')"></i>
@@ -64,7 +64,7 @@
                                         <div v-if="submodule.submodules" :class="submodule.submodules ? '' : 'hidden'" v-show="(submodule.submodules ? submodule.isOpen  : '')">
                                             <ul v-for="module in submodule.submodules" class="flex flex-col gap-1.5">
                                                 <li class="sidebar-container py-1">
-                                                    <div class="flex">
+                                                    <div v-if="module.type === 'button'" class="flex">
                                                         <div
                                                             :class="this.activeSidebarButton === module.id ? 'w-1 bg-white left-0 h-wrap rounded-r' : 'hidden'">
                                                         </div>
@@ -74,6 +74,21 @@
                                                             <i :class="ICON_PREFIX + module.icon + ' mt-0.5'"></i>
                                                             <span class="pl-2">{{ module.name.replace("_", " ") }}</span>
                                                     </button>
+                                                    </div>
+                                                    <div v-else class="flex">
+                                                        <div
+                                                            :class="this.activeSidebarButton === module.id ? 'w-1 bg-white left-0 h-wrap rounded-r' : 'hidden'">
+                                                        </div>
+                                                        <RouterLink :to="`${module.url}`" @click="!module.submodules ? sidebarClickHandler(module.id) : null" :class="activeSidebarButton == module.id ? 'active-sidebar-button' : ''"
+                                                            v-on:click="(module.submodules ? module.isOpen = !module.isOpen : '')"
+                                                            class="ml-4 sidebar-button w-full text-sm font-bold flex items-center gap-2.5 p-2 text-gray-400 rounded"
+                                                            :id="module.id">
+                                                            <i :class="ICON_PREFIX + module.icon"></i>
+                                                            <div class="flex justify-between w-full">
+                                                                <span>{{ module.name.replace("_", " ") }}</span> 
+                                                                <i v-if="module.submodules" :class="'mt-1 fa-solid ' + (module.isOpen ? 'fa-angle-down' : 'fa-angle-up')"></i>
+                                                            </div>
+                                                        </RouterLink>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -92,20 +107,20 @@
 </template>
 
 <script>
-import { ICON_PREFIX, ROOT_PATH } from '../assets/data/globals.json'
+import { ICON_PREFIX } from '../assets/data/globals.json'
 import { get_logo_image } from '../assets/js/resource'
 import { get_sidebar_modules } from '../assets/js/module.js'
 import { RouterLink } from 'vue-router';
-import Homepage from '../views/Homepage.vue';
+
 
 export default {
     data: () => {
         return {
             ICON_PREFIX,
-            ROOT_PATH,
-            logo: 'src/assets/images/company.png',
+            logo: '/src/assets/images/company.png',
             modules: null,
             activeSidebarButton: '',
+            ls: window.localStorage
         };
     },
     methods: {
@@ -127,26 +142,16 @@ export default {
             }
 
         },
-        addSidebarRoutes: async function(){
-            let result = await get_sidebar_modules()
-            let modules = result.data.message
-
-            for(let i in modules){
-                this.$router.addRoute({name: `${modules[i].name.toLowerCase()}`, path: `/dbachum/${modules[i].name.toLowerCase()}`, components: { init: Homepage }})
-                this.$router.addRoute(`${modules[i].name.toLowerCase()}`, { path: '', components: { homeview: () => import(`${modules[i].src}${modules[i].name}.vue`) }})
-            }
-
-            console.log(this.$router.getRoutes())
-        },
         sidebarClickHandler: function (component) {
-            this.activeSidebarButton = component
+            this.ls.setItem('component', component)
+            this.activeSidebarButton = this.ls.getItem('component')
         }
 
     },
     mounted: function () {
         this.getImage()
         this.getSidebarModules()
-        this.addSidebarRoutes()
+        this.sidebarClickHandler(this.ls.getItem('component'))
     }
 }
 

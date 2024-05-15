@@ -189,8 +189,8 @@ export default {
             this.getDiskSpace()
         },
         getDiskSpace: async function () {
-
-            this.List = JSON.stringify(await get_disk_space().data.message[0])
+            let result = await get_disk_space(this.selectedId, this.selectedType, this.selectedUnit, this.currentPage)
+            this.List = JSON.stringify(result.data.message[0])
             this.totalPages = result.data.count
 
             this.series[0].data = result.data.message[1].map((disk) => disk.used)

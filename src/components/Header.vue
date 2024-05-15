@@ -2,13 +2,6 @@
     <header class="sticky top-0 z-9999 flex w-full dashboard-header border-b-[1px]">
         <div class="grid grid-cols-2 gap-1 px-4 py-1 h-10 w-full">
             <div class="flex" id="ctmdropdown">
-                <div class="header-buttons w-full mt-1">
-                    <button
-                        class="hidden rounded bg-blue-100 text-xs text-gray-300 h-6 w-28 px-2 flex items-center justify-between">
-                        <span>Databases</span>
-                        <i class="fa-solid fa-angle-up"></i>
-                    </button>
-                </div>
             </div>
             <div class="grid grid-cols-1 justify-items-end" id="user-menu">
                 <button v-on:click="open = !open" class="rounded-full overflow-hidden">
@@ -26,13 +19,13 @@
                                     Profile </span><i class="mt-0.5 fa-solid fa-user-circle"></i></button>
                         </div>
                         <div class="z-20">
-                            <RouterLink to="/dbachum/email"
+                            <RouterLink to="/email"
                                 class="profile-menu-buttons flex justify-between px-2 w-full transition delay-100 block text-gray-300 py-2"><span>Email
                                 </span><i class="mt-0.5 fa-solid fa-envelope"></i>
                             </RouterLink>
                         </div>
                         <div class="z-20">
-                            <RouterLink to="/dbachum/settings"
+                            <RouterLink to="/settings"
                             class="profile-menu-buttons flex justify-between px-2 w-full transition delay-100 block text-gray-300 py-2 text-center ">
                                 <span>Settings</span>
                                 <i class="mt-0.5 fa-solid fa-cogs"></i>
@@ -74,7 +67,7 @@ export default {
                 msg: '',
                 status: true
             },
-            profile: 'src/assets/images/user.png'
+            profile: '/src/assets/images/user.png'
         }
     },
     components: {
@@ -83,7 +76,7 @@ export default {
     },
     methods: {
         logout: function () {
-            window.location.href = '/login';
+            window.location.href = '/dbachum/login';
         },
         openEmail: async function () {
             let result = await get_email_url()

@@ -56,7 +56,7 @@
         <Pagination :total-pages="totalPages" :current-page="currentPage" @pagechanged="onPageChange" />
     </div>
     <Teleport to="body">
-        <FormsModal :show="form.show" :action="form.action" @close="onFormClose">
+        <Forms_Modal :show="form.show" :action="form.action" @close="onFormClose">
             <template #body>
                 <form @submit.prevent>
                     <div class="grid grid-cols-4 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -150,7 +150,7 @@
             <template #footer>
                 <button class="submit-buttons p-2 rounded text-xs" @click="showModal('save')">Submit?</button>
             </template>
-        </FormsModal>
+        </Forms_Modal>
         <Confirmation :show="confirmation.show" @close="confirmation.show = false">
             <template #body>
                 <h3 class="font-bold">{{ this.confirmation.msg }}</h3>
@@ -173,7 +173,7 @@
 import Table from '../components/Table.vue'
 import { ICON_PREFIX } from '../assets/data/globals.json'
 import Pagination from '../components/Pagination.vue'
-import FormsModal from '../components/FormsModal.vue'
+import Forms_Modal from '../components/Forms_Modal.vue'
 import Spinner from '../components/dialogs/Spinner.vue'
 import Confirmation from '../components/dialogs/Confirmation.vue'
 import { clearObject, transferArrayToObject, sleep } from '../assets/js/tools.js'
@@ -235,7 +235,7 @@ export default {
     components: {
         Pagination,
         Table,
-        FormsModal,
+        Forms_Modal,
         Spinner,
         Confirmation,
         Alert
@@ -301,13 +301,16 @@ export default {
             this.form.show = true
         },
         getAssetOS: async function () {
-            this.assetOS = await get_asset_os().data.message
+            let result = await get_asset_os()
+            this.assetOS = result.data.message
         },
         getAssetType: async function () {
-            this.assetType = await get_asset_type().data.message
+            let result = await get_asset_type()
+            this.assetType = result.data.message
         },
         getAssetEnvironment: async function () {
-            this.assetEnv = await get_asset_environment().data.message
+            let result = await get_asset_environment()
+            this.assetEnv = result.data.message
         },
         getAssetList: async function () {
 
@@ -319,7 +322,8 @@ export default {
                 search: this.search
             }
             
-            this.List = JSON.stringify(await get_asset_list().data.message)
+            let result = await get_asset_list(JSON.stringify(details), this.currentPage)
+            this.List = JSON.stringify(result.data.message)
             this.totalPages = result.data.count
         },
         confirmAction: function (value) {
