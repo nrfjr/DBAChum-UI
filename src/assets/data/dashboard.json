@@ -1,0 +1,107 @@
+{
+    "DATABASES_SUBMODULES":
+    {
+        "oracle":
+                [
+                    {
+                        "title" : "Monitor",
+                        "options" : 
+                                    [
+                                        {
+                                            "name": "User Sessions",
+                                            "url" : "/databases/oracle/monitor/user_sessions"
+                                        },
+                                        {
+                                            "name": "Locked Sessions",
+                                            "url" : "/databases/oracle/monitor/locked_sessions"
+                                        },
+                                        {
+                                            "name": "Redo Log Switches",
+                                            "url" : "/databases/oracle/monitor/redo_log_switches"
+                                        },
+                                        {
+                                            "name": "Redo Log Generation",
+                                            "url" : "/databases/oracle/monitor/redo_log_generation"
+                                        },
+                                        {
+                                            "name": "Top Sessions",
+                                            "url" : "/databases/oracle/monitor/top_sessions"
+                                        },
+                                        {
+                                            "name": "Archive Log",
+                                            "url" : "/databases/oracle/monitor/archive_log"
+                                        },
+                                        {
+                                            "name": "Tables",
+                                            "url" : "/databases/oracle/monitor/tables"
+                                        }
+                                    ]
+                    },
+                    {
+                        "title" : "Performance",
+                        "options" : 
+                                    [
+                                        {
+                                            "name": "PGA Target Advisor",
+                                            "url" : "/databases/oracle/performance/pga_ta"
+                                        },
+                                        {
+                                            "name": "SGA Target Advisor",
+                                            "url" : "/databases/oracle/performance/sga_ta"
+                                        },
+                                        {
+                                            "name": "Buffer Cache Advisor",
+                                            "url" : "/databases/oracle/performance/buffer_ca"
+                                        },
+                                        {
+                                            "name": "Hit Ratio",
+                                            "url" : "/databases/oracle/performance/hit_ratio"
+                                        }
+                                    ]
+                    },
+                    {
+                        "title" : "Security",
+                        "options" : 
+                                    [
+                                        {
+                                            "name": "Roles & Privileges",
+                                            "url" : "/databases/oracle/security/roles_and_privileges"
+                                        },
+                                        {
+                                            "name": "LDIF Creation",
+                                            "url" : "/databases/oracle/security/ldif_creation"
+                                        }
+                                    ]
+                    },
+                    {
+                        "title" : "Objects",
+                        "options" : 
+                                    [
+                                        {
+                                            "name": "Datafile Layout",
+                                            "url" : "/databases/oracle/objects/datafile_layout"
+                                        },
+                                        {
+                                            "name": "Invalid Objects",
+                                            "url" : "/databases/oracle/objects/invalid"
+                                        },
+                                        {
+                                            "name": "Statistics",
+                                            "url" : "/databases/oracle/objects/statistics"
+                                        },
+                                        {
+                                            "name": "Indexes",
+                                            "url" : "/databases/oracle/objects/indexes"
+                                        },
+                                        {
+                                            "name": "SGA Dynamic",
+                                            "url" : "/databases/oracle/objects/sga_dynamic"
+                                        }
+                                    ]
+                    }
+                ],
+        "mysql": [],
+        "mssql": [],
+        "maria": []
+    }
+}

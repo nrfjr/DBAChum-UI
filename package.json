@@ -18,7 +18,8 @@
     "vue": "^3.3.4",
     "vue-apexcharts": "^1.6.2",
     "vue-router": "^4.2.4",
-    "vue3-apexcharts": "^1.4.4"
+    "vue3-apexcharts": "^1.4.4",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.6.2",

@@ -70,11 +70,8 @@
 
 <script>
 import anime from 'animejs'
-import { sleep } from '../assets/js/tools'
-import { ADMIN } from '../assets/data/admin.json'
-import { postData } from '../assets/js/api'
-import { MODULES } from '../assets/data/globals.json'
-import { get_logo_image } from '../assets/js/resource'
+import { ADMIN_ACCOUNT } from '/src/assets/data/admin.json'
+import { get_logo_image } from '/src/assets/js/resource'
 
 export default {
     data() {
@@ -92,7 +89,7 @@ export default {
 
             let USERNAME = this.login.username.toUpperCase()
 
-            this.login.loginStatus = ((ADMIN.password == this.login.password) && (ADMIN.username == this.login.username)) ? true : false
+            this.login.loginStatus = ((ADMIN_ACCOUNT.password == this.login.password) && (ADMIN_ACCOUNT.username == this.login.username)) ? true : false
 
             if (this.login.loginStatus) {
                 this.$router.push('/home')

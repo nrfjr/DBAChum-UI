@@ -1,9 +1,9 @@
 <template>
     <header class="sticky top-0 z-9999 flex w-full dashboard-header border-b-[1px]">
-        <div class="grid grid-cols-2 gap-1 px-4 py-1 h-10 w-full">
+        <div class="flex justify-between px-4 py-1 h-10 w-full">
             <div class="flex" id="ctmdropdown">
             </div>
-            <div class="grid grid-cols-1 justify-items-end" id="user-menu">
+            <div class="flex justify-end" id="user-menu">
                 <button v-on:click="open = !open" class="rounded-full overflow-hidden">
                     <img class="h-8 w-8" alt="User Profile Image" v-bind:src="profile">
                 </button>
@@ -104,8 +104,7 @@ export default {
         this.getImage()
         window.addEventListener('click', (event) => {
 
-            if (!((event.target.parentNode.parentElement.id == 'user-menu') ||
-                (event.target.parentNode.parentNode.parentNode.parentNode.id == 'user-menu'))) {
+            if (!((event.target.parentNode.parentElement.id == 'user-menu'))) {
                 if (this.open) {
                     this.open = false
                 }

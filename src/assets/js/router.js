@@ -2,24 +2,7 @@ import { createWebHistory, createRouter } from "vue-router"
 import Login from "/src/views/Login.vue"
 import Homepage from "/src/views/Homepage.vue"
 import Empty from "/src/components/Empty.vue"
-import Settings from "/src/views/Settings.vue"
-import Connections from "/src/views/settings/Connections.vue"
-import Modules from "/src/views/settings/Modules.vue"
-import Disk_Servers from "/src/views/settings/Disk_Servers.vue"
-import Preferences from "/src/views/settings/Preferences.vue"
-import Advance_Settings from "/src/views/settings/Advance_Settings.vue"
-import Email from "/src/views/Email.vue"
-import Disks_Storage from '/src/views/Disks_Storage.vue'
-import User_Management from '/src/views/User_Management.vue'
-import Contacts from '/src/views/Contacts.vue'
-import Assets_Management from '/src/views/Assets_Management.vue'
 import Not_Found from '/src/components/Not_Found.vue'
-import Oracle_Dashboard from '/src/views/oracle/Dashboard.vue'
-import MySQL_Dashboard from '/src/views/mysql/Dashboard.vue'
-import MSSQL_Dashboard from '/src/views/mssql/Dashboard.vue'
-import Maria_Dashboard from '/src/views/maria/Dashboard.vue'
-import Flash_Recovery from '/src/views/oracle/Flash_Recovery.vue'
-import Growth from '/src/views/oracle/Growth.vue'
 
 
 const router = createRouter({
@@ -70,7 +53,7 @@ const router = createRouter({
                                 {
                                     path: '',
                                     components: {
-                                        homeview: Settings
+                                        homeview: () => import('/src/views/Settings.vue')
                                     },
                                     children:
                                         [
@@ -81,31 +64,31 @@ const router = createRouter({
                                             {
                                                 path: 'connections',
                                                 components: {
-                                                    tab: Connections
+                                                    tab: () => import('/src/views/settings/Connections.vue')
                                                 }
                                             },
                                             {
                                                 path: 'modules',
                                                 components: {
-                                                    tab: Modules
+                                                    tab: () => import('/src/views/settings/Modules.vue')
                                                 }
                                             },
                                             {
                                                 path: 'disk_servers',
                                                 components: {
-                                                    tab: Disk_Servers
+                                                    tab: () => import('/src/views/settings/Disk_Servers.vue')
                                                 }
                                             },
                                             {
                                                 path: 'preferences',
                                                 components: {
-                                                    tab: Preferences
+                                                    tab: () => import('/src/views/settings/Preferences.vue')
                                                 }
                                             },
                                             {
                                                 path: 'advance_settings',
                                                 components: {
-                                                    tab: Advance_Settings
+                                                    tab: () => import('/src/views/settings/Advance_Settings.vue')
                                                 }
                                             },
 
@@ -124,7 +107,7 @@ const router = createRouter({
                                     path: '',
                                     components:
                                     {
-                                        homeview: Email
+                                        homeview: () => import('/src/views/Email.vue')
                                     }
                                 }
                             ]
@@ -152,22 +135,170 @@ const router = createRouter({
                                                 path: 'dashboard',
                                                 components:
                                                 {
-                                                    homeview: Oracle_Dashboard
+                                                    homeview: () => import('/src/views/oracle/Dashboard.vue')
                                                 }
                                             },
                                             {
                                                 path: 'flash_recovery',
                                                 components:
                                                 {
-                                                    homeview: Flash_Recovery
+                                                    homeview: () => import('/src/views/oracle/Flash_Recovery.vue')
                                                 }
                                             },
                                             {
                                                 path: 'growth',
                                                 components:
                                                 {
-                                                    homeview: Growth
+                                                    homeview: () => import('/src/views/oracle/Growth.vue')
                                                 }
+                                            },
+                                            {
+                                                path: 'monitor',
+                                                children: 
+                                                [
+                                                    {
+                                                        path: '',
+                                                        redirect: '/databases/oracle/monitor/user_sessions'
+                                                    },
+                                                    {
+                                                        path: 'user_sessions',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/monitor/sessions/User.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'locked_sessions',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/monitor/sessions/Locked.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'redo_log_switches',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/monitor/redo_log/Switches.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'redo_log_generation',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/monitor/redo_log/Generation.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'top_sessions',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/monitor/sessions/Top.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'archive_log',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/monitor/Archive_Log.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'tables',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/monitor/Tables.vue')
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                path: 'performance',
+                                                children: 
+                                                [
+                                                    {
+                                                        path: '',
+                                                        redirect: '/databases/oracle/performance/pga_ta'
+                                                    },
+                                                    {
+                                                        path: 'pga_ta',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/performance/advisor/PGA_Target.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'sga_ta',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/performance/advisor/SGA_Target.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'buffer_ca',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/performance/advisor/Buffer_Cache.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'hit_ratio',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/performance/Hit_Ratio.vue')
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                path: 'security',
+                                                children: 
+                                                [
+                                                    {
+                                                        path: '',
+                                                        redirect: '/databases/oracle/security/roles_and_privileges'
+                                                    },
+                                                    {
+                                                        path: 'roles_and_privileges',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/security/Roles_and_Privileges.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'ldif_creation',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/security/LDIF_Creation.vue')
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                path: 'objects',
+                                                children: 
+                                                [
+                                                    {
+                                                        path: '',
+                                                        redirect: '/databases/oracle/security/datafile_layout'
+                                                    },
+                                                    {
+                                                        path: 'datafile_layout',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/objects/Datafile_Layout.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'invalid',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/objects/Datafile_Layout.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'statistics',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/objects/Statistics.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'indexes',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/objects/Indexes.vue')
+                                                        }
+                                                    },
+                                                    {
+                                                        path: 'sga_dynamic',
+                                                        components:{
+                                                            homeview: () => import('/src/views/oracle/objects/SGA_Dynamic.vue')
+                                                        }
+                                                    }
+                                                ]
                                             }
                                         ]
                                 },
@@ -186,7 +317,7 @@ const router = createRouter({
                                                 path: 'dashboard',
                                                 components:
                                                 {
-                                                    homeview: MySQL_Dashboard
+                                                    homeview: () => import('/src/views/mysql/Dashboard.vue')
                                                 }
                                             }
                                         ]
@@ -206,7 +337,7 @@ const router = createRouter({
                                                 path: 'dashboard',
                                                 components:
                                                 {
-                                                    homeview: MSSQL_Dashboard
+                                                    homeview: () => import('/src/views/mssql/Dashboard.vue')
                                                 }
                                             }
                                         ]
@@ -226,7 +357,7 @@ const router = createRouter({
                                                 path: 'dashboard',
                                                 components:
                                                 {
-                                                    homeview: Maria_Dashboard
+                                                    homeview: () => import('/src/views/maria/Dashboard.vue')
                                                 }
                                             }
                                         ]
@@ -245,7 +376,7 @@ const router = createRouter({
                                     path: '',
                                     components:
                                     {
-                                        homeview: Disks_Storage
+                                        homeview: () => import('/src/views/Disks_Storage.vue')
                                     }
                                 }
                             ]
@@ -261,7 +392,7 @@ const router = createRouter({
                                     path: '',
                                     components:
                                     {
-                                        homeview: User_Management
+                                        homeview: () => import('/src/views/User_Management.vue')
                                     }
                                 }
                             ]
@@ -277,7 +408,7 @@ const router = createRouter({
                                     path: '',
                                     components:
                                     {
-                                        homeview: Contacts
+                                        homeview: () => import('/src/views/Contacts.vue')
                                     }
                                 }
                             ]
@@ -293,7 +424,7 @@ const router = createRouter({
                                     path: '',
                                     components:
                                     {
-                                        homeview: Assets_Management
+                                        homeview: () => import('/src/views/Assets_Management.vue')
                                     }
                                 }
                             ]
