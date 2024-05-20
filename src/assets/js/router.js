@@ -97,6 +97,22 @@ const router = createRouter({
                             ]
                     },
                     {
+                        path: 'profile',
+                        components: {
+                            init: Homepage,
+                        },
+                        children:
+                            [
+                                {
+                                    path: '',
+                                    components:
+                                    {
+                                        homeview: () => import('/src/views/Profile.vue')
+                                    }
+                                }
+                            ]
+                    },
+                    {
                         path: 'email',
                         components: {
                             init: Homepage,

@@ -14,9 +14,10 @@
                     </div>
                     <div class="flex flex-col text-xs justify-between z-10">
                         <div class="z-20">
-                            <button @click="open = !open"
+                            <RouterLink to="/profile"
                                 class="profile-menu-buttons flex justify-between px-2 w-full transition delay-100 block text-gray-300 py-2 text-center rounded-t"><span>My
-                                    Profile </span><i class="mt-0.5 fa-solid fa-user-circle"></i></button>
+                                    Profile </span><i class="mt-0.5 fa-solid fa-user-circle"></i>
+                            </RouterLink>
                         </div>
                         <div class="z-20">
                             <RouterLink to="/email"
