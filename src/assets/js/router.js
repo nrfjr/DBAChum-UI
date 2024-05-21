@@ -91,6 +91,12 @@ const router = createRouter({
                                                     tab: () => import('/src/views/settings/Advance_Settings.vue')
                                                 }
                                             },
+                                            {
+                                                path: 'application_users',
+                                                components: {
+                                                    tab: () => import('/src/views/settings/Application_Users.vue')
+                                                }
+                                            },
 
                                         ]
                                 }

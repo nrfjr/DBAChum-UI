@@ -36,7 +36,8 @@ export default {
                 2: "Modules",
                 3: "Disk_Servers",
                 4: "Preferences",
-                5: "Advance_Settings"
+                5: "Advance_Settings",
+                6: "Application_Users"
             }
         };
     },
