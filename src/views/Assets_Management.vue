@@ -183,15 +183,13 @@ export default {
         return {
             action: '',
             rawdb: null,
-            databases: null,
-            selectedDB: '',
-            existingDBConn: null,
             showPassword: false,
             assetType: null,
+            assetOS: null,
             selectedSearchType: 1,
             assetEnv: null,
             selectedSearchEnv: 1,
-            assetOS: null,
+            selectedOS: null,
             currentPage: 1,
             totalPages: 0,
             selectedId: null,
@@ -244,19 +242,17 @@ export default {
             this.getAssetList()
         },
         onEditDetail: function (data) {
-            let os = JSON.stringify(this.assetOS)
-            let result = data
 
-            result.Id = +result.Id
-            result['OS'] = +JSON.parse(os).filter(item => item.Name === result.OS)[0].Id
-            result['Type'] = this.selectedSearchType
-            result['Environment'] = this.selectedSearchEnv
-
-            this.transferArray(result, 
+            this.transferArray(data, 
                 {
                     IP: 'IP Address'
                 }
             )
+
+            this.formData.OS = (data.OS === "Linux") ? 1 : 2
+            this.formData.Type = this.selectedSearchType
+            this.formData.Environment = this.selectedSearchEnv
+
             this.showForm('Edit')
         },
         onDeleteDetail: function(data){
