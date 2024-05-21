@@ -3,7 +3,7 @@
         <div class="flex justify-end h-8">
             <button @click="showForm('Create')" class="rounded create-or-add ml-2 w-32 text-white text-xs font-bold shadow-black shadow-md">New User <i :class="ICON_PREFIX + 'plus'" class="text-md pl-2"></i></button>
         </div>
-        <Table :count="this.totalPages" :rows="JSON.parse(this.existingAppUsers)" :withAction="true" @editdata="onEditDetail"
+        <Table :count="this.totalPages" :rows="this.existingAppUsers" :withAction="true" @editdata="onEditDetail"
             @deletedata="onDeleteDetail" />
     </div>
     <Teleport to="body">
@@ -87,14 +87,11 @@ export default {
         getExistingUsers: async function () {
 
             let result = await get_existing_application_users(this.currentPage)
-            this.existingAppUsers = JSON.stringify(result.data.message)
+            this.existingAppUsers = result.data.message
             this.totalPages = result.data.count
-
-            console.log(this.existingAppUsers)
         },
         onEditDetail: function(data){
-            let details = JSON.parse(data)
-            this.transferArray(details)
+            this.transferArray(data)
             this.showForm('Edit')
         },
         onDeleteDetail: function(data){

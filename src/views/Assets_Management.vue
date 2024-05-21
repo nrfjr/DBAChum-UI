@@ -51,7 +51,7 @@
     </div>
     <div
         class="flex-col mx-4 mt-4 overflow-x-auto shadow-md rounded h-max no-scrollbar shadow-lg shadow-black third-degree-form pt-4 px-4">
-        <Table :count="this.totalPages" :rows="JSON.parse(this.List)" :withAction="true" @editdata="onEditDetail"
+        <Table :count="this.totalPages" :rows="this.List" :withAction="true" @editdata="onEditDetail"
             @deletedata="onDeleteDetail" />
         <Pagination :total-pages="totalPages" :current-page="currentPage" @pagechanged="onPageChange" />
     </div>
@@ -245,7 +245,7 @@ export default {
         },
         onEditDetail: function (data) {
             let os = JSON.stringify(this.assetOS)
-            let result = JSON.parse(data)
+            let result = data
 
             result.Id = +result.Id
             result['OS'] = +JSON.parse(os).filter(item => item.Name === result.OS)[0].Id
@@ -320,7 +320,7 @@ export default {
             }
             
             let result = await get_asset_list(JSON.stringify(details), this.currentPage)
-            this.List = JSON.stringify(result.data.message)
+            this.List = result.data.message
             this.totalPages = result.data.count
         },
         confirmAction: function (value) {
