@@ -56,47 +56,45 @@
         <Pagination :total-pages="totalPages" :current-page="currentPage" @pagechanged="onPageChange" />
     </div>
     <Teleport to="body">
-        <Forms_Modal :show="form.show" :action="form.action" @close="onFormClose">
+        <Forms_Modal :show="form.show" :subject="'Asset'" :action="form.action" @close="onFormClose">
             <template #body>
                 <form @submit.prevent>
-                    <div class="grid grid-cols-4 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="col-start-3">
+                    <div class="grid grid-cols-3 gap-x-6 gap-y-8 pt-10">
+                        <div class="col-span-2 col-start-2">
                             <label class="block text-sm font-medium leading-6 text-gray-200">Asset Type</label>
                             <select v-model="formData.Type"
-                                class="input text-sm mt-2 mr-5 block w-full h-10 rounded py-1.5 px-2 text-white">
+                                class="input text-white text-sm rounded block w-full p-2.5">
                                 <option class="text-sm" v-for="assettype in this.assetType" :value="assettype.Id">{{
                                     assettype.Name
                                 }}
                                 </option>
                             </select>
                         </div>
-                        <div>
+                        <div class="col-span-2">
                             <label class="block text-sm font-medium leading-6 text-gray-200">Environment</label>
                             <select v-model="formData.Environment"
-                                class="input text-sm mt-2 block w-full h-10 rounded border-0 py-1.5 px-2 text-white"
+                                class="input text-white text-sm rounded block w-full p-2.5"
                                 @change="this.currentPage = 1">
                                 <option class="text-sm" v-for="env in this.assetEnv" :value="env.Id">{{ env.Name }}
                                 </option>
                             </select>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-4 gap-x-6 gap-y-8 sm:grid-cols-6 pt-10">
-                        <div class="sm:col-span-3">
+                        <div class="col-span-full">
                             <label class="block text-sm font-medium leading-6 text-gray-200">Hostname<span
                                     class="text-red-500"> *</span></label>
                             <input v-model="formData.Hostname" type="text"
-                                class="input text-white text-sm rounded block w-full p-2.5 input ">
+                                class="input text-white text-sm rounded block w-full p-2.5">
                         </div>
 
-                        <div class="col-span-1">
+                        <div class="col-span-2">
                             <label class="block text-sm font-medium leading-6 text-gray-200">IP Address<span
                                     class="text-red-500">
                                     *</span></label>
                             <input v-model="formData.IP" type="text"
-                                class="input text-white text-sm rounded block w-full p-2.5 input ">
+                                class="input text-white text-sm rounded block w-full p-2.5">
                         </div>
 
-                        <div class="sm:col-span-3">
+                        <div class="col-span-full">
                             <label class="block text-sm font-medium leading-6 text-gray-200">Operating System (OS)<span
                                     class="text-red-500"> *</span></label>
                             <select v-model="formData.OS" class="input text-sm mr-5 block w-full h-10 rounded px-2 text-white">
@@ -107,7 +105,7 @@
                             </select>
                         </div>
 
-                        <div class="sm:col-span-2 sm:col-start-1">
+                        <div class="col-span-2">
                             <label class="block text-sm font-medium leading-6 text-gray-200">Version<span
                                     class="text-red-500">
                                     *</span></label>
@@ -115,7 +113,7 @@
                                 class="input text-white text-sm rounded block w-full p-2.5 input">
                         </div>
 
-                        <div class="col-span-full">
+                        <div class="col-span-5">
                             <label class="block text-sm font-medium leading-6 text-gray-200">Remarks<span
                                     class="text-red-500">
                                     *</span></label>
@@ -123,7 +121,7 @@
                                 class="p-2 input text-white text-sm rounded block w-full input" />
                         </div>
 
-                        <div class="sm:col-span-2 sm:col-start-1">
+                        <div class="col-span-2">
                             <label class="block text-sm font-medium leading-6 text-gray-200">Username<span
                                     class="text-red-500">
                                     *</span></label>
@@ -259,7 +257,6 @@ export default {
                     IP: 'IP Address'
                 }
             )
-            this.createOrEditAssets()
             this.showForm('Edit')
         },
         onDeleteDetail: function(data){

@@ -11,6 +11,10 @@ export default {
             type: String,
             default: 'Create',
         },
+        subject: {
+            type: String,
+            default: '',
+        }
     },
     data: () => {
         return {
@@ -25,7 +29,7 @@ export default {
         <div v-if="show" class="assets-mask text-white">
             <div class="assets-container rounded shadow-md">
                 <div class="assets-header flex justify-between">
-                    <slot name="header">{{ this.action }} Asset</slot>
+                    <slot name="header">{{ this.action }} {{ this.subject }}</slot>
                     <button class="float-right" @click="this.$emit('close', true)"><i
                             :class="ICON_PREFIX + 'times'"></i></button>
                 </div>
@@ -57,7 +61,7 @@ export default {
 }
 
 .assets-container {
-    width: 50%;
+    width: fit-content;
     height: fit-content;
     margin: auto;
     padding: 20px 30px;
