@@ -225,16 +225,19 @@ export default {
 
             this.confirmation.show = false
 
-            this.spinner.show = true
+            if(value){
 
-            sleep(3000).then(() => {
-                if (value && this.action == 'save') {
-                    this.upsertConnection()
-                }
-                else if (value && this.action == 'delete') {
-                    this.deleteConnectionDetails()
-                }
-            })
+                this.spinner.show = true
+
+                sleep(3000).then(() => {
+                    if (this.action == 'save') {
+                        this.upsertConnection()
+                    }
+                    else if (this.action == 'delete') {
+                        this.deleteConnectionDetails()
+                    }
+                })
+            }
         },
         clearForm: function () {
             clearObject(this.formData)
@@ -249,7 +252,7 @@ export default {
         },
         deleteConnectionDetails: async function () {
 
-            let result = await delete_db_connection_profile(id, db)
+            let result = await delete_db_connection_profile(this.selectedId, this.selectedDB)
             this.spinner.show = false
             if (result.data.status) {
                 this.showAlert(true, 'Success! ' + result.data.message)

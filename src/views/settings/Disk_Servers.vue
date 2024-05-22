@@ -37,7 +37,7 @@
                     <input v-model="formData.Username" class="input text-white text-sm rounded block w-full p-2.5 input">
                 </div>
 
-                <div class="sm:col-span-2">
+                <div class="col-span-1">
                     <label class="block text-sm font-medium leading-6 text-gray-200">Password<span class="text-red-500">
                             *</span></label>
                     <div class="relative text-white">
@@ -138,9 +138,8 @@ import Spinner from '../../components/dialogs/Spinner.vue'
 import Confirmation from '../../components/dialogs/Confirmation.vue'
 import Alert from '../../components/dialogs/Alert.vue'
 import { clearObject, transferArrayToObject, sleep } from '../../assets/js/tools.js'
-import { postData } from '../../assets/js/api.js'
-import { ICON_PREFIX, MODULES } from '../../assets/data/globals.json'
-import { delete_disk_server_profile, get_existing_disk_server_profiles } from '../../assets/js/disk.js'
+import { ICON_PREFIX } from '../../assets/data/globals.json'
+import { delete_disk_server_profile, get_existing_disk_server_profiles, upsert_disk_server } from '../../assets/js/disk.js'
 export default {
     data() {
         return {
@@ -179,7 +178,7 @@ export default {
     },
     methods: {
         upsertDiskServer: async function () {
-            let result =  await postData(JSON.stringify(this.formData), this.selectedType)
+            let result =  await upsert_disk_server(JSON.stringify(this.formData), this.selectedType)
 
             this.spinner.show = false
 
@@ -204,18 +203,22 @@ export default {
         },
         confirmAction: function (value) {
 
+
             this.confirmation.show = false
 
-            this.spinner.show = true
+            if(value){
 
-            sleep(3000).then(() => {
-                if (value && this.action == 'save') {
-                    this.upsertDiskServer()
-                }
-                else if (value && this.action == 'delete') {
-                    this.deleteDiskServerDetails()
-                }
-            })
+                this.spinner.show = true
+
+                sleep(3000).then(() => {
+                    if (this.action == 'save') {
+                        this.upsertDiskServer()
+                    }
+                    else if (this.action == 'delete') {
+                        this.deleteDiskServerDetails()
+                    }
+                })
+            }
         },
         getExistingDiskServers: async function () {
             let result = await get_existing_disk_server_profiles(this.selectedType)

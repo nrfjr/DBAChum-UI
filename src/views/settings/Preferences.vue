@@ -1,44 +1,6 @@
 <template>
 <div class="w-[40%] flex justify-center">
     <div class="p-4 rounded third-degree-form shadow-md shadow-black w-full h-full">
-        <div class="pb-4">
-            <span class="text-white text-md">Profile Image</span>
-            <div class="bg-transparent border-dashed border-gray-600 border-2 rounded mt-6"
-                :class="profileImage.length > 0 ? '' : 'p-20'" @dragover.prevent="dragover" @dragleave.prevent="dragleave"
-                @drop.prevent="dropProfile">
-                <input type="file" id="profileImageInput" class="hidden" @change="onProfileChange" ref="file"
-                    accept="image/jpeg,image/png,image/jpg" />
-
-                <label for="profileImageInput" class="file-label">
-                    <div class="text-white italic text-xs text-center">
-                        <div v-if="isDragging && profileImage.length == 0">Release to drop files here.</div>
-                        <div v-else-if="isDragging == false && profileImage.length == 0">Drop new profile image here or
-                            <u>click
-                                here</u> to
-                            upload.
-                        </div>
-                    </div>
-                </label>
-
-                <div class="flex justify-center" v-if="profileImage.length">
-                    <div v-for=" file  in  profileImage " :key="file.name" class="flex m-4 p-4">
-                        <div>
-                            <img class="rounded" height="150" width="150" :src="generateThumbnail(file)" />
-                            <p :title="file.name" class="text-gray-300 text-xs italic text-center">
-                                {{ file.name }}
-                            </p>
-                        </div>
-                        <div>
-                            <button class="ml-2 text-red-600" type="button"
-                                @click="removeImage(profileImage, profileImage.indexOf(file))" title="Remove file">
-                                <i :class="ICON_PREFIX + 'times'"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr class="divider">
         <div>
             <span class="text-white text-md">Logo</span>
             <div class="bg-transparent border-dashed border-gray-600 border-2 rounded mt-6"
@@ -50,7 +12,7 @@
                 <label for="logoImageInput" class="file-label">
                     <div class="text-white italic text-xs text-center">
                         <div v-if="isDragging && logoImage.length == 0">Release to drop files here.</div>
-                        <div v-else-if="isDragging == false && logoImage.length == 0">Drop new profile image here or
+                        <div v-else-if="isDragging == false && logoImage.length == 0">Drop new image here or
                             <u>click
                                 here</u> to
                             upload.
@@ -115,7 +77,6 @@ export default {
     data() {
         return {
             isDragging: false,
-            profileImage: [],
             logoImage: [],
             ICON_PREFIX,
             confirmation: {
@@ -142,10 +103,9 @@ export default {
 
             this.spinner.show = false
 
-            if (this.logoImage[0] || this.profileImage[0]) {
+            if (this.logoImage[0]) {
 
                 let newPreference = new FormData()
-                newPreference.append('newProfile', this.profileImage[0])
                 newPreference.append('newLogo', this.logoImage[0])
 
                 let result = await update_preference('save_preference', newPreference)
@@ -153,7 +113,6 @@ export default {
                 if (result.data.status) {
                     this.showAlert(result.data.status, 'Success! ' + result.data.message)
                     this.clearForm()
-                    getImage()
                 } else {
                     this.showAlert(result.data.status, 'Oops! ' + result.data.error)
                 }
@@ -188,15 +147,6 @@ export default {
                 })
             }
         },
-        onProfileChange: function () {
-            const file = [...this.$refs.file.files][0];
-            const extensions = ["jpg", "png", "jpeg"];
-            if (!extensions.includes(file.name.split(".")[1])) {
-                this.showAlert(false, 'Only .PNG, .JPEG and .JPG format are allowed!')
-            } else {
-                this.profileImage = [...this.$refs.file.files];
-            }
-        },
         onLogoChange: function () {
             const file = [...this.$refs.file.files][0];
             const extensions = ["jpg", "png", "jpeg"];
@@ -216,7 +166,6 @@ export default {
         },
 
         clearForm: function () {
-            this.profileImage = []
             this.logoImage = []
         },
 
@@ -230,13 +179,6 @@ export default {
 
         dragleave: function () {
             this.isDragging = false;
-        },
-
-        dropProfile: function (e) {
-            this.$refs.file.files = e.dataTransfer.files;
-            this.onProfileChange();
-            this.isDragging = false;
-
         },
         dropLogo: function (e) {
             this.$refs.file.files = e.dataTransfer.files;

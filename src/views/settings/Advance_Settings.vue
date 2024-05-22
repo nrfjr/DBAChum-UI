@@ -6,9 +6,9 @@
                 <div class="flex">
                     <span class="text-white text-lg">Default Database </span>
                 </div>
-                <em class="text-gray-400 text-xs py-1.5"> This will be used for application logins and other
+                <em class="text-gray-400 text-xs py-1.5"> This will be used for some
                     features.</em>
-                <div class="grid grid-cols-3 gap-x-4 gap-y-8 sm:grid-cols-6 mt-8">
+                <div class="grid grid-cols-3 gap-x-4 gap-y-8 mt-8">
                     <div class="col-span-1">
                         <label class="block text-sm font-medium leading-6 text-gray-200">Database Type<span
                                 class="text-red-500">
@@ -34,8 +34,8 @@
             <hr class="divider">
             <div>
                 <span class="text-white text-lg">Email</span>
-                <div class="grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-6 mt-8">
-                    <div class="col-span-3">
+                <div class="grid grid-cols-3 gap-x-6 gap-y-8 mt-8">
+                    <div class="col-span-full">
                         <label class="block text-sm font-medium leading-6 text-gray-200">New Email URL<span
                                 class="text-red-500">
                                 *</span></label>
@@ -50,7 +50,7 @@
             <hr class="divider">
             <div>
                 <span class="text-white text-lg">Miscellaneous</span>
-                <div class="grid grid-cols-3 gap-x-6 gap-y-8 sm:grid-cols-6 mt-8">
+                <div class="grid grid-cols-3 gap-x-6 gap-y-8 mt-8">
                     <div class="col-span-3">
                         <label class="block text-sm font-medium leading-6 text-gray-200">API Server URL<span
                                 class="text-red-500">
@@ -91,8 +91,7 @@
 import Confirmation from '../../components/dialogs/Confirmation.vue'
 import Alert from '../../components/dialogs/Alert.vue';
 import Spinner from '../../components/dialogs/Spinner.vue';
-import { MODULES, API_SOURCE } from '../../assets/data/globals.json'
-import { postData, testLink } from '../../assets/js/api.js';
+import { API_SOURCE } from '../../assets/data/globals.json'
 import { sleep } from '../../assets/js/tools';
 import { get_email_url, test_link, update_default_db, update_email_url } from '../../assets/js/setting.js';
 import { get_available_db_type, get_existing_db_connection } from '../../assets/js/database.js';
