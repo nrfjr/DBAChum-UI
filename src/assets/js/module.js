@@ -1,5 +1,5 @@
 import { postData } from "./api"
-import { MODULES } from "../data/globals.json"
+import { MODULES } from "/src/assets/data/globals.json"
 
 export async function get_sidebar_modules(){
     let result = await postData(MODULES.MODULE, null, [['request', 'retrieve_modules']])

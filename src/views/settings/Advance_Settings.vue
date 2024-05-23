@@ -88,13 +88,13 @@
     </Teleport>
 </template>
 <script>
-import Confirmation from '../../components/dialogs/Confirmation.vue'
-import Alert from '../../components/dialogs/Alert.vue';
-import Spinner from '../../components/dialogs/Spinner.vue';
-import { API_SOURCE } from '../../assets/data/globals.json'
-import { sleep } from '../../assets/js/tools';
-import { get_email_url, test_link, update_default_db, update_email_url } from '../../assets/js/setting.js';
-import { get_available_db_type, get_existing_db_connection } from '../../assets/js/database.js';
+import Confirmation from '/src/components/dialogs/Confirmation.vue'
+import Alert from '/src/components/dialogs/Alert.vue';
+import Spinner from '/src/components/dialogs/Spinner.vue';
+import { API_SOURCE } from '/src/assets/data/globals.json'
+import { sleep } from '/src/assets/js/tools';
+import { get_email_url, test_link, update_default_db, update_email_url } from '/src/assets/js/setting.js';
+import { get_available_db_type, get_existing_db_connection } from '/src/assets/js/database.js';
 
 export default {
     data() {

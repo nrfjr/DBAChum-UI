@@ -54,8 +54,8 @@
 <script>
 import Confirmation from './dialogs/Confirmation.vue'
 import Alert from './dialogs/Alert.vue'
-import { get_email_url } from '../assets/js/setting.js'
-import { get_profile_image } from '../assets/js/resource.js'
+import { get_email_url } from '/src/assets/js/setting.js'
+import { get_profile_image } from '/src/assets/js/resource.js'
 import { RouterLink } from 'vue-router'
 
 export default {

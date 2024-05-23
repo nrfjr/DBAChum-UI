@@ -1,5 +1,5 @@
 import { postData, testLink } from "./api"
-import { MODULES } from "../data/globals.json"
+import { MODULES } from "/src/assets/data/globals.json"
 
 export async function get_email_url(){
     let result = await postData(MODULES.SETTING, null, [['request', 'retrieve_email_URL']])

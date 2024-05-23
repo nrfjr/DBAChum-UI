@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import Sidebar from '../components/Sidebar.vue'
-import Header from '../components/Header.vue'
-import Footer from '../components/Footer.vue'
-import { ICON_PREFIX, API_SOURCE } from '../assets/data/globals.json'
-import { sleep } from '../assets/js/tools'
-import Spinner from '../components/dialogs/Spinner.vue'
+import Sidebar from '/src/components//Sidebar.vue'
+import Header from '/src/components//Header.vue'
+import Footer from '/src/components//Footer.vue'
+import { ICON_PREFIX, API_SOURCE } from '/src/assets/data/globals.json'
+import { sleep } from '/src/assets/js/tools'
+import Spinner from '/src/components//dialogs/Spinner.vue'
 
 export default {
     data: () => {

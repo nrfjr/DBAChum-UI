@@ -168,15 +168,15 @@
 </template>
 
 <script>
-import Table from '../components/Table.vue'
-import { ICON_PREFIX } from '../assets/data/globals.json'
-import Pagination from '../components/Pagination.vue'
-import Forms_Modal from '../components/Forms_Modal.vue'
-import Spinner from '../components/dialogs/Spinner.vue'
-import Confirmation from '../components/dialogs/Confirmation.vue'
-import { clearObject, transferArrayToObject, sleep } from '../assets/js/tools.js'
-import Alert from '../components/dialogs/Alert.vue'
-import { delete_asset, get_asset_environment, get_asset_list, get_asset_os, get_asset_type, upsert_assert } from '../assets/js/asset.js'
+import Table from '/src/components//Table.vue'
+import { ICON_PREFIX } from '/src/assets/data/globals.json'
+import Pagination from '/src/components//Pagination.vue'
+import Forms_Modal from '/src/components//Forms_Modal.vue'
+import Spinner from '/src/components//dialogs/Spinner.vue'
+import Confirmation from '/src/components//dialogs/Confirmation.vue'
+import { clearObject, transferArrayToObject, sleep } from '/src/assets/js/tools.js'
+import Alert from '/src/components//dialogs/Alert.vue'
+import { delete_asset, get_asset_environment, get_asset_list, get_asset_os, get_asset_type, upsert_assert } from '/src/assets/js/asset.js'
 
 export default {
     data() {

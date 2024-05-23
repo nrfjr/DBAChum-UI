@@ -47,15 +47,33 @@
                 <button class="submit-buttons p-2 rounded text-xs" @click="showModal('save')">Submit?</button>
             </template>
         </Forms_Modal>
+        <Confirmation :show="confirmation.show" @close="confirmation.show = false">
+            <template #body>
+                <h3 class="font-bold">{{ this.confirmation.msg }}</h3>
+            </template>
+            <template #footer>
+                <button class="p-1 rounded text-gray-300 mr-4 text-xs" @click="confirmAction(false)">Nah.</button>
+                <button class="submit-buttons p-2 rounded text-xs" @click="confirmAction(true)">Yup!</button>
+            </template>
+        </Confirmation>
+        <Alert :status="alert.status" :show="alert.show" @close="alert.show = false">
+            <template #body>
+                <h3 class="font-bold">{{ alert.msg }}</h3>
+            </template>
+        </Alert>
+        <Spinner :show="spinner.show" />
     </Teleport>
 </template>
 
 <script>
-import { get_existing_application_users } from '/src/assets/js/application.js'
+import { get_existing_application_users, upsert_application_user, delete_application_user } from '/src/assets/js/application.js'
 import { ICON_PREFIX } from '/src/assets/data/globals.json'
-import Table from '../../components/Table.vue';
-import Forms_Modal from '../../components/Forms_Modal.vue';
-import { clearObject, transferArrayToObject } from '../../assets/js/tools';
+import Table from '/src/components/Table.vue';
+import Forms_Modal from '/src/components/Forms_Modal.vue';
+import Confirmation from '/src/components/dialogs/Confirmation.vue';
+import Alert from '/src/components/dialogs/Alert.vue';
+import { clearObject, transferArrayToObject, sleep } from '/src/assets/js/tools';
+import Spinner from '/src/components/dialogs/Spinner.vue';
 
 export default {
     data() {
@@ -72,6 +90,18 @@ export default {
                 Username: null,
                 Password: null
             },
+            confirmation: {
+                show: false,
+                msg: ''
+            },
+            alert: {
+                show: false,
+                msg: '',
+                status: true
+            },
+            spinner: {
+                show: false
+            },
             form: {
                 show: false,
                 action: 'Create'
@@ -81,7 +111,10 @@ export default {
     },
     components: {
         Table,
-        Forms_Modal
+        Forms_Modal,
+        Confirmation,
+        Alert,
+        Spinner
     },
     methods: {
         getExistingUsers: async function () {
@@ -90,12 +123,68 @@ export default {
             this.existingAppUsers = result.data.message
             this.totalPages = result.data.count
         },
+        confirmAction(value){
+
+            this.confirmation.show = false
+
+            if(value){
+
+                this.spinner.show = true
+
+                sleep(3000).then(() => {
+                    if (this.action == 'save') {
+                        this.createOrUpdateUser()
+                    }
+                    else if (this.action == 'delete') {
+                        this.deleteUser()
+                    }
+                })
+            }
+
+        },
+        createOrUpdateUser: async function(){
+
+            let result =  await upsert_application_user(JSON.stringify(this.formData))
+            this.spinner.show = false
+
+            if (result.data.status) {
+                this.showAlert(true, 'Saved! ' + result.data.message)
+                clearObject(this.formData)
+                this.getExistingUsers()
+            } else {
+                this.showAlert(false, 'Oops! ' + result.data.error)
+            }
+
+        },
+        deleteUser: async function(){
+
+            let result = await delete_application_user(this.selectedId)
+            this.spinner.show = false
+            if (result.data.status) {
+                this.showAlert(true, 'Success! ' + result.data.message)
+                clearObject(this.formData)
+                this.getExistingUsers()
+            } else {
+                this.showAlert(false, 'Oops! ' + result.data.error)
+            }
+        },
+        showAlert: function (status, message) {
+            this.alert.status = status
+            this.alert.msg = message
+            this.alert.show = true
+        },
+        showModal: function (action) {
+            this.action = action
+            this.confirmation.msg = 'Are you sure to ' + action + ' these details?'
+            this.confirmation.show = true
+        },
         onEditDetail: function(data){
             this.transferArray(data)
             this.showForm('Edit')
         },
         onDeleteDetail: function(data){
-            alert(data)
+            this.selectedId = data.Id
+            this.showModal('delete')
         },
         showForm: function (action) {
             this.form.action = action

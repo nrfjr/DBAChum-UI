@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_SOURCE } from '../data/globals.json'
+import { API_SOURCE } from '/src/assets/data/globals.json'
 
 export async function postData(module, url,  params){
 

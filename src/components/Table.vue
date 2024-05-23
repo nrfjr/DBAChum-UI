@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import { ICON_PREFIX } from '../assets/data/globals.json';
-import { makeTitle } from '../assets/js/tools';
+import { ICON_PREFIX } from '/src/assets/data/globals.json';
+import { makeTitle } from '/src/assets/js/tools';
 
 export default {
     data() {

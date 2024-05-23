@@ -1,5 +1,5 @@
 import { postData } from "./api"
-import { MODULES } from "../data/globals.json"
+import { MODULES } from "/src/assets/data/globals.json"
 
 export async function get_disk_space(id, type, unit,  page){
     let result = await postData(MODULES.DISK, null, [['request', 'retrieve_server_disk_size'], ['Id', id], ['server_type', type], ['unit', unit], ['page', page]])

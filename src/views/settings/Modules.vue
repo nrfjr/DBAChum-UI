@@ -46,13 +46,13 @@
     </Teleport>
 </template>
 <script>
-import Confirmation from '../../components/dialogs/Confirmation.vue'
-import Alert from '../../components/dialogs/Alert.vue'
-import Spinner from '../../components/dialogs/Spinner.vue'
-import { sleep } from '../../assets/js/tools'
-import { ICON_PREFIX, MODULES } from '../../assets/data/globals.json'
-import { postData } from '../../assets/js/api'
-import { get_sidebar_modules, update_sidebar_modules } from '../../assets/js/module'
+import Confirmation from '/src/components/dialogs/Confirmation.vue'
+import Alert from '/src/components/dialogs/Alert.vue'
+import Spinner from '/src/components/dialogs/Spinner.vue'
+import { sleep } from '/src/assets/js/tools'
+import { ICON_PREFIX, MODULES } from '/src/assets/data/globals.json'
+import { postData } from '/src/assets/js/api'
+import { get_sidebar_modules, update_sidebar_modules } from '/src/assets/js/module'
 
 export default {
     data() {

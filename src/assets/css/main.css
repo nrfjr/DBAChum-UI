@@ -102,16 +102,16 @@ body {
 }
 
 .empty-cat {
-    content: url(../images/empty-cat.gif);
+    content: url(/src/assets/images/empty-cat.gif);
 }
 
 .such-empty-cat {
-    content: url(../images/empty-cat.png);
+    content: url(/src/assets/images/empty-cat.png);
 }
 
 
 .brand-icon {
-    content: url(../images/icon.png);
+    content: url(/src/assets/images/icon.png);
 }
 
 

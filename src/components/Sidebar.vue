@@ -107,9 +107,9 @@
 </template>
 
 <script>
-import { ICON_PREFIX } from '../assets/data/globals.json'
-import { get_logo_image } from '../assets/js/resource'
-import { get_sidebar_modules } from '../assets/js/module.js'
+import { ICON_PREFIX } from '/src/assets/data/globals.json'
+import { get_logo_image } from '/src/assets/js/resource'
+import { get_sidebar_modules } from '/src/assets/js/module.js'
 import { RouterLink } from 'vue-router';
 
 

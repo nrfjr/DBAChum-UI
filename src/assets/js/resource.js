@@ -1,5 +1,5 @@
 import { postData, postFile } from "./api"
-import { MODULES } from "../data/globals.json"
+import { MODULES } from "/src/assets/data/globals.json"
 
 export async function get_profile_image(){
     let result = await postData(MODULES.RESOURCE, null, [['request', 'get_profile_image']])

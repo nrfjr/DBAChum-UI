@@ -66,12 +66,12 @@
 
 <script>
 
-import Alert from '../../components/dialogs/Alert.vue';
-import Confirmation from '../../components/dialogs/Confirmation.vue';
-import Spinner from '../../components/dialogs/Spinner.vue';
-import { sleep } from '../../assets/js/tools';
-import { ICON_PREFIX } from '../../assets/data/globals.json'
-import { update_preference } from '../../assets/js/resource';
+import Alert from '/src/components/dialogs/Alert.vue';
+import Confirmation from '/src/components/dialogs/Confirmation.vue';
+import Spinner from '/src/components/dialogs/Spinner.vue';
+import { sleep } from '/src/assets/js/tools';
+import { ICON_PREFIX } from '/src/assets/data/globals.json'
+import { update_preference } from '/src/assets/js/resource';
 
 export default {
     data() {

@@ -1,5 +1,5 @@
 <script>
-import { ICON_PREFIX } from '../assets/data/globals.json'
+import { ICON_PREFIX } from '/src/assets/data/globals.json'
 
 export default {
     props: {

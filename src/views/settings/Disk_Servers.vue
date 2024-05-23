@@ -134,12 +134,12 @@
 </template>
 
 <script>
-import Spinner from '../../components/dialogs/Spinner.vue'
-import Confirmation from '../../components/dialogs/Confirmation.vue'
-import Alert from '../../components/dialogs/Alert.vue'
-import { clearObject, transferArrayToObject, sleep } from '../../assets/js/tools.js'
-import { ICON_PREFIX } from '../../assets/data/globals.json'
-import { delete_disk_server_profile, get_existing_disk_server_profiles, upsert_disk_server } from '../../assets/js/disk.js'
+import Spinner from '/src/components/dialogs/Spinner.vue'
+import Confirmation from '/src/components/dialogs/Confirmation.vue'
+import Alert from '/src/components/dialogs/Alert.vue'
+import { clearObject, transferArrayToObject, sleep } from '/src/assets/js/tools.js'
+import { ICON_PREFIX } from '/src/assets/data/globals.json'
+import { delete_disk_server_profile, get_existing_disk_server_profiles, upsert_disk_server } from '/src/assets/js/disk.js'
 export default {
     data() {
         return {

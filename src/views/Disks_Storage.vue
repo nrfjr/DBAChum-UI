@@ -65,12 +65,12 @@
 
 <script>
 import VueApexCharts from 'vue3-apexcharts'
-import Table from '../components/Table.vue'
-import { ICON_PREFIX } from '../assets/data/globals.json'
-import Pagination from '../components/Pagination.vue'
-import Spinner from '../components/dialogs/Spinner.vue'
-import { sleep } from '../assets/js/tools.js'
-import { get_disk_space, get_existing_ip } from '../assets/js/disk.js'
+import Table from '/src/components//Table.vue'
+import { ICON_PREFIX } from '/src/assets/data/globals.json'
+import Pagination from '/src/components//Pagination.vue'
+import Spinner from '/src/components//dialogs/Spinner.vue'
+import { sleep } from '/src/assets/js/tools.js'
+import { get_disk_space, get_existing_ip } from '/src/assets/js/disk.js'
 
 export default {
     data() {

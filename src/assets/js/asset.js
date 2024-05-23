@@ -1,5 +1,5 @@
 import { postData } from "./api"
-import { MODULES } from "../data/globals.json"
+import { MODULES } from "/src/assets/data/globals.json"
 
 export async function delete_asset(data,  db){
     let result = await postData(MODULES.ASSET, null, [['request', 'validate_delete_asset_request'], ['data', data], ['db', db]])

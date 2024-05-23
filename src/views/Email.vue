@@ -5,8 +5,8 @@
     <Web_View :url="this.url" />
 </template>
 <script>
-import { get_email_url } from '../assets/js/setting'
-import Web_View from '../components/Web_View.vue'
+import { get_email_url } from '/src/assets/js/setting'
+import Web_View from '/src/components//Web_View.vue'
 
 export default{
 
