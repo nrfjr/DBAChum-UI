@@ -25,23 +25,23 @@
                     <form class="space-y-4 md:space-y-6" @submit.prevent="submit">
                         <div>
                             <label
-                                :class="{ 'text-gray-300 ': this.login.loginStatus, 'text-red-400 italic ': !this.login.loginStatus }"
+                                :class="{ 'text-gray-300 ': this.login.status, 'text-red-400 italic ': !this.login.status }"
                                 class="block mb-1 text-xs font-medium">USERNAME
-                                <span v-if="this.login.loginStatus" class="login-error-msg italic text-red-400">*</span>
+                                <span v-if="this.login.status" class="login-error-msg italic text-red-400">*</span>
                                 <span v-else class="login-error-msg italic text-red-400 text-2"> - Invalid username!</span>
                             </label>
-                            <input type="text" v-model="login.username"
+                            <input type="text" v-model="login.Username"
                                 class="text-white sm:text-sm rounded block w-full p-2.5 input"
-                                oninput="this.value = this.value.toUpperCase();" required>
+                                 required>
                         </div>
                         <div>
                             <label
-                                :class="{ 'text-gray-300 ': this.login.loginStatus, 'text-red-400 italic ': !this.login.loginStatus }"
+                                :class="{ 'text-gray-300 ': this.login.status, 'text-red-400 italic ': !this.login.status }"
                                 class="block mb-1 text-xs font-medium">PASSWORD
-                                <span v-if="this.login.loginStatus" class="login-error-msg italic text-red-400">*</span>
+                                <span v-if="this.login.status" class="login-error-msg italic text-red-400">*</span>
                                 <span v-else class="login-error-msg italic text-red-400 text-2"> - Invalid password!</span>
                             </label>
-                            <input type="password" v-model="login.password"
+                            <input type="password" v-model="login.Password"
                                 class="text-white sm:text-sm rounded block w-full p-2.5 input" required>
                             <button type="button" onclick="alert('Just relax, calm down and try to remember it again.');"
                                 class="text-xs font-medium text-indigo-300 hover:underline dark:text-primary-500">Forgot
@@ -66,33 +66,65 @@
             <p class="ml-2 absolute left-0">nrfjr &copy; 2023, All Rights reserved.</p>
         </footer>
     </div>
+    <Teleport to="body">
+        <Alert :status="alert.status" :show="alert.show" @close="alert.show = false">
+            <template #body>
+                <h3 class="font-bold">{{ alert.msg }}</h3>
+            </template>
+        </Alert>
+        <Spinner :show="spinner.show" />
+    </Teleport>
 </template>
 
 <script>
 import anime from 'animejs'
-import { ADMIN_ACCOUNT } from '/src/assets/data/admin.json'
 import { get_logo_image } from '/src/assets/js/resource'
+import { validate_user_login } from '/src/assets/js/application'
+import { sleep, clearObject } from '/src/assets/js/tools'
+import Alert from '/src/components/dialogs/Alert.vue'
+import Spinner from '/src/components/dialogs/Spinner.vue'
 
 export default {
     data() {
         return {
             login: {
-                username: '',
-                password: '',
-                loginStatus: true,
+                Username: '',
+                Password: '',
+                status: true
             },
-            logo: 'src/assets/images/company.png'
+            logo: 'src/assets/images/company.png',
+            alert: {
+                show: false,
+                msg: '',
+                status: true
+            },
+            spinner: {
+                show: false
+            }
         }
+    },
+    components:{
+        Alert,
+        Spinner
     },
     methods: {
         submit: async function () {
 
-            let USERNAME = this.login.username.toUpperCase()
+            let result = await validate_user_login(JSON.stringify(this.login))
 
-            this.login.loginStatus = ((ADMIN_ACCOUNT.password == this.login.password) && (ADMIN_ACCOUNT.username == this.login.username)) ? true : false
+            if (result.data.status) {
 
-            if (this.login.loginStatus) {
-                this.$router.push('/home')
+                this.spinner.show = true
+
+                sleep(3000).then(() => {
+                    this.$router.push('/home')
+                })
+
+            }else{
+                this.alert.show = true
+                this.alert.msg = result.data.error
+                this.alert.status = result.data.status
+                this.login.status = result.data.status
             }
 
         },
@@ -142,7 +174,7 @@ export default {
                 easing: 'easeInOutQuad',
                 loop: false
             });
-        },
+        }
     },
     mounted: function () {
         this.getImage()

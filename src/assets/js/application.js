@@ -15,3 +15,8 @@ export async function delete_application_user(id){
     let result = await postData(MODULES.APPS, null, [['request', 'validate_application_user_delete_request'], ['Id', id]])
     return result
 }
+
+export async function validate_user_login(data){
+    let result = await postData(MODULES.APPS, null, [['request', 'validate_application_user_login'], ['data', data]])
+    return result
+}
